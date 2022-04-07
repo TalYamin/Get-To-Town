@@ -1,24 +1,25 @@
 #pragma once
 
-#include "AccessList.h"
+#include "CityList.h"
 
-class AccessList;
+class CityList;
+class CityNode;
+
 class City
 {
 	int id;
-	AccessList* accessList;
+	CityList* cityList;
 public:
 
 	//ctors + dtors
 	City();
 	City(int _id);
-	City(int _id, AccessList* _accessList);
+	City(int _id, CityList* _cityList);
 	~City();
 
 	//getters + setters
 	int getId();
-	AccessList* getAccessList();
-	void makeEmptyAccessList();
+	CityList* getCityList();
 
 private:
 

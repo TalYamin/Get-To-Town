@@ -1,8 +1,10 @@
 #pragma once
 
+#include "City.h"
 #include "CityNode.h"
 
-
+class City;
+class CityNode;
 class CityList
 {
 	CityNode* head;
@@ -11,12 +13,13 @@ class CityList
 public:
 	CityList();
 	~CityList();
-	void makeEmptyCityList(CityList* cityList);
-	bool isEmptyCityList(CityList* cityList);
-	CityNode* createNewCityNode(City* city, CityNode* next);
-	void insertCityNodeToEndList(CityList* cityList, CityNode* tail);
-	void insertCityDataToEndList(CityList* cityList, City* city);
+	void makeEmptyCityList();
+	bool isEmptyCityList();
+	void insertCityDataToEndList(City* city);
+
 private:
+	CityNode* createNewCityNode(City* city, CityNode* next);
+	void insertCityNodeToEndList(CityNode* tail);
 
 
 };

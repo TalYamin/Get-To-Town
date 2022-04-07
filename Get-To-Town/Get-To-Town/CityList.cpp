@@ -8,16 +8,16 @@ CityList::~CityList()
 {
 }
 
-void CityList::makeEmptyCityList(CityList* cityList){
+void CityList::makeEmptyCityList(){
 	
-	cityList->head = cityList->tail = nullptr;
+	this->head = this->tail = nullptr;
 }
 
-bool CityList::isEmptyCityList(CityList* cityList)
+bool CityList::isEmptyCityList()
 {
 	bool isEmpty = false;
 
-	if (cityList->head == nullptr) {
+	if (this->head == nullptr) {
 		isEmpty = true;
 	}
 
@@ -29,26 +29,26 @@ CityNode* CityList::createNewCityNode(City* city, CityNode* next) {
 	return new CityNode(city, next);
 }
 
-void CityList::insertCityNodeToEndList(CityList* cityList, CityNode* tail) {
+void CityList::insertCityNodeToEndList(CityNode* tail) {
 
-	if (isEmptyCityList(cityList)) {
-		cityList->head = cityList->tail = tail;
+	if (isEmptyCityList()) {
+		this->head = this->tail = tail;
 	}
 
 	else {
-		cityList->tail->setNext(tail);
-		cityList->tail = tail;
+		this->tail->setNext(tail);
+		this->tail = tail;
 	}
 
 	tail->setNext(nullptr);
 
 }
 
-void CityList::insertCityDataToEndList(CityList* cityList, City* city)
+void CityList::insertCityDataToEndList(City* city)
 {
 	CityNode* newTail;
 	newTail = createNewCityNode(city,nullptr);
-	insertCityNodeToEndList(cityList, newTail);
+	insertCityNodeToEndList(newTail);
 
 }
 

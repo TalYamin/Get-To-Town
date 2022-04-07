@@ -8,8 +8,9 @@ City::City(int _id)
 {
 }
 
-City::City(int _id, AccessList* _accessList)
-{
+City::City(int _id, CityList* _cityList){
+
+
 }
 
 City::~City()
@@ -21,9 +22,9 @@ int City::getId()
 	return id;
 }
 
-AccessList* City::getAccessList()
+CityList* City::getCityList()
 {
-	return accessList;
+	return cityList;
 }
 
 
