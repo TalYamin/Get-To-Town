@@ -30,6 +30,12 @@
     <ClInclude Include="Road.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CityList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CityNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AccessList.cpp">
@@ -48,6 +54,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CityList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CityNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

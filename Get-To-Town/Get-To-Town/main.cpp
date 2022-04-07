@@ -39,4 +39,7 @@ int main() {
 		allRoads.push_back(road);
 		inputAllRoads.erase(0, pos + 1);//size of ' '
 	}
+
+	country.initCountry();
+
 }

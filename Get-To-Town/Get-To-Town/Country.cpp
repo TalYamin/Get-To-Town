@@ -13,9 +13,6 @@ City** Country::getCities()
 	return nullptr;
 }
 
-void Country::addCity(City* city)
-{
-}
 
 int Country::getCitiesAmount()
 {
@@ -26,4 +23,18 @@ void Country::setCitiesAmount(int _citiesAmount)
 {
 }
 
+void Country::initCountry() {
 
+	for (int i = 0; i < citiesAmount; i++){
+		cities[i] = new City(i + 1);
+
+	}
+}
+
+void Country::addCities(vector<Road*> allRoads) {
+
+	//for (int i = 0; i < allRoads.size(); i++){
+	//	cities[allRoads[i]->getSrc()-1]
+	//}
+
+}
