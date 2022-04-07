@@ -8,7 +8,7 @@ class CityNode;
 class City
 {
 	int id;
-	CityList* cityList;
+
 public:
 
 	//ctors + dtors
@@ -19,8 +19,6 @@ public:
 
 	//getters + setters
 	int getId();
-	CityList* getCityList();
-
 private:
 
 };

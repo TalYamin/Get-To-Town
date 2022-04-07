@@ -9,7 +9,7 @@ using namespace std;
 
 class Country
 {
-	City** cities = {};
+	vector<CityList*> cities;
 	int citiesAmount;
 
 public:

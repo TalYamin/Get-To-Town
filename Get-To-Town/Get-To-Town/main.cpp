@@ -19,14 +19,13 @@ int main() {
 	Road* road;
 	int cityAmounts;
 	int roadAmounts;
-	string bla;
 	int moked;
 	size_t pos = 0;
 	cin >> cityAmounts;
 	country.setCitiesAmount(cityAmounts);
 	cin >> roadAmounts;
 	cin.ignore();
-	getline(cin, bla);
+	getline(cin, inputAllRoads);
 	cin >> moked;
 	while ((pos = inputAllRoads.find(DELIIMITER)) != string::npos) {
 		road = createNewRoad(inputAllRoads, pos, cityAmounts);
@@ -36,6 +35,8 @@ int main() {
 	{
 		handleError();
 	}
+	country.initCountry();
+	country.addCities(allRoads);
 }
 
 void handleError()
@@ -76,8 +77,6 @@ int getRoadDirectionFromInput(string& inputAllRoads, size_t pos, int cityAmout)
 	{
 		handleError();
 	}
-
-	country.initCountry();
 
 
 	return num;

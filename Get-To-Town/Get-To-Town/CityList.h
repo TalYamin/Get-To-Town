@@ -7,8 +7,8 @@ class City;
 class CityNode;
 class CityList
 {
-	CityNode* head;
-	CityNode* tail;
+	CityNode* head = nullptr;
+	CityNode* tail = nullptr;
 
 public:
 	CityList();
@@ -19,7 +19,7 @@ public:
 
 private:
 	CityNode* createNewCityNode(City* city, CityNode* next);
-	void insertCityNodeToEndList(CityNode* tail);
+	void insertCityNodeToEndList(CityNode* newTail);
 
 
 };
