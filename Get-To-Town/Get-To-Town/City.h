@@ -1,17 +1,26 @@
 #pragma once
 
-#include "AccessList.h"
+#include "CityList.h"
 
-class AccessList;
+class CityList;
+class CityNode;
+
 class City
 {
 	int id;
-	AccessList* accessList;
+	bool isWhite = true;
 public:
+
+	//ctors + dtors
 	City();
-	City(int _id, AccessList* _accessList);
+	City(int _id);
+	City(int _id, CityList* _cityList);
 	~City();
 
+	//getters + setters
+	int getId();
+	bool getIsWhite();
+	void setIsWhite(bool _isWhite);
 
 private:
 

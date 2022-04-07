@@ -1,10 +1,16 @@
 #pragma once
 
+#include "vector"
 #include "City.h"
+#include "Road.h"
+#include "AccessList.h"
+
+using namespace std;
+
 
 class Country
 {
-	City** cities = {};
+	vector<CityList*> cities;
 	int citiesAmount;
 
 public:
@@ -13,12 +19,14 @@ public:
 	~Country();
 
 	//getters + setters
-	City** getCities();
-	void addCity(City* city);
+	vector<CityList*> getCities();
 	int getCitiesAmount();
 	void setCitiesAmount(int _citiesAmount);
+	void initCountry();
+	void addCities(vector<Road*> allRoads);
+	City* findCityById(int id);
 
 private:
-
+	void addCity(City* city);
 };
 

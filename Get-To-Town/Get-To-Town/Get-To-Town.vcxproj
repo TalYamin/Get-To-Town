@@ -142,6 +142,8 @@
     <ClInclude Include="AccessList.h" />
     <ClInclude Include="AccessNode.h" />
     <ClInclude Include="City.h" />
+    <ClInclude Include="CityList.h" />
+    <ClInclude Include="CityNode.h" />
     <ClInclude Include="Country.h" />
     <ClInclude Include="Road.h" />
   </ItemGroup>
@@ -149,6 +151,8 @@
     <ClCompile Include="AccessList.cpp" />
     <ClCompile Include="AccessNode.cpp" />
     <ClCompile Include="City.cpp" />
+    <ClCompile Include="CityList.cpp" />
+    <ClCompile Include="CityNode.cpp" />
     <ClCompile Include="Country.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Road.cpp" />
