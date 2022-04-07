@@ -2,6 +2,8 @@
 #include "Country.h"
 #include "Road.h"
 #include "vector"
+#include "AccessNode.h"
+#include "AccessList.h"
 #include <string>
 #define DELIIMITER ' '
 
@@ -10,10 +12,11 @@ int getRoadDirectionFromInput(string& inputAllRoads, size_t pos, int cityAmout);
 Road* createNewRoad(string& inputAllRoads, size_t pos, int cityAmout);
 bool isValid(int roadAmounts, int roadAmountFound);
 void handleError();
-
+void getToTown(Country* country, City* moked, AccessList* accessList);
 
 int main() {
 	Country country;
+	AccessList accessList;
 	vector<Road*> allRoads;
 	string inputAllRoads;
 	Road* road;
@@ -37,6 +40,8 @@ int main() {
 	}
 	country.initCountry();
 	country.addCities(allRoads);
+
+	getToTown(&country, country.findCityById(moked), &accessList);
 }
 
 void handleError()
@@ -80,4 +85,25 @@ int getRoadDirectionFromInput(string& inputAllRoads, size_t pos, int cityAmout)
 
 
 	return num;
+}
+
+
+void getToTown(Country* country, City* moked, AccessList* accessList) {
+
+	moked->setIsWhite(false);
+	AccessNode* currAccessNode = new AccessNode(moked, -1);
+	accessList->insertAfter(currAccessNode, accessList->foundLastIndex());
+	for (int i = 0; i < country->getCities().size(); i++)
+	{
+		CityList* cityList = country->getCities()[i];
+		if (cityList->getHead()->getCity()->getId()==moked->getId()){
+			CityNode* curr = cityList->getHead();
+			while (curr != nullptr) {
+				if (curr->getCity()->getIsWhite()) {
+					getToTown(country, curr->getCity(), accessList);
+				}
+				curr = curr->getNext();
+			}
+		}
+	}
 }

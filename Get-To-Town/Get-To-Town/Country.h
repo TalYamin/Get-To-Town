@@ -3,6 +3,7 @@
 #include "vector"
 #include "City.h"
 #include "Road.h"
+#include "AccessList.h"
 
 using namespace std;
 
@@ -18,11 +19,12 @@ public:
 	~Country();
 
 	//getters + setters
-	City** getCities();
+	vector<CityList*> getCities();
 	int getCitiesAmount();
 	void setCitiesAmount(int _citiesAmount);
 	void initCountry();
 	void addCities(vector<Road*> allRoads);
+	City* findCityById(int id);
 
 private:
 	void addCity(City* city);

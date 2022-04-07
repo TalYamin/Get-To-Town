@@ -8,11 +8,11 @@ Country::~Country()
 {
 }
 
-City** Country::getCities()
-{
-	return nullptr;
-}
 
+vector<CityList*> Country::getCities()
+{
+	return cities;
+}
 
 int Country::getCitiesAmount()
 {
@@ -42,3 +42,14 @@ void Country::addCities(vector<Road*> allRoads) {
 	}
 
 }
+
+City* Country::findCityById(int id)
+{
+	for (int i = 0; i < citiesAmount; i++)
+	{
+		if (cities[i]->getHead()->getCity()->getId() == id)
+			return cities[i]->getHead()->getCity();
+	};
+	return nullptr;
+}
+

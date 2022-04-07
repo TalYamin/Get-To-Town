@@ -9,12 +9,16 @@ CityList::~CityList()
 {
 }
 
-void CityList::makeEmptyCityList() {
-
-	head = nullptr;
-	tail = nullptr;
-
+CityNode* CityList::getHead()
+{
+	return head;
 }
+
+CityNode* CityList::getTail()
+{
+	return tail;
+}
+
 bool CityList::isEmptyCityList()
 {
 	bool isEmpty = false;

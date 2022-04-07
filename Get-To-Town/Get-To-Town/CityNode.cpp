@@ -18,3 +18,13 @@ void CityNode::setNext(CityNode* _next)
 {
 	next = _next;
 }
+
+City* CityNode::getCity()
+{
+	return city;
+}
+
+CityNode* CityNode::getNext()
+{
+	return next;
+}

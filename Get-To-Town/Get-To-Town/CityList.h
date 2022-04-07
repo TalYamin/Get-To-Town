@@ -13,7 +13,8 @@ class CityList
 public:
 	CityList();
 	~CityList();
-	void makeEmptyCityList();
+	CityNode* getHead();
+	CityNode* getTail();
 	bool isEmptyCityList();
 	void insertCityDataToEndList(City* city);
 

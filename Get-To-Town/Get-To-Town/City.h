@@ -8,7 +8,7 @@ class CityNode;
 class City
 {
 	int id;
-
+	bool isWhite = true;
 public:
 
 	//ctors + dtors
@@ -19,6 +19,9 @@ public:
 
 	//getters + setters
 	int getId();
+	bool getIsWhite();
+	void setIsWhite(bool _isWhite);
+
 private:
 
 };
