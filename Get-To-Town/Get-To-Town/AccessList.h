@@ -2,6 +2,7 @@
 
 #include "AccessNode.h"
 
+class AccessNode;
 class AccessList
 {
 
@@ -11,6 +12,7 @@ class AccessList
 
 public:
 	AccessList();
+	AccessList(AccessNode* _list, int _headList, int _headFree);
 	~AccessList();
 
 private:

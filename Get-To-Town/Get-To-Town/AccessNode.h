@@ -2,6 +2,8 @@
 
 #include "City.h"
 
+class AccessList;
+class City;
 class AccessNode
 {
 
@@ -9,9 +11,9 @@ class AccessNode
 	int next; //index
 public:
 	AccessNode();
+	AccessNode(City* _city, int _next);
 	~AccessNode();
 
 private:
 
 };
-
