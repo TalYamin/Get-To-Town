@@ -145,7 +145,10 @@
     <ClInclude Include="CityList.h" />
     <ClInclude Include="CityNode.h" />
     <ClInclude Include="Country.h" />
+    <ClInclude Include="ItemType.h" />
     <ClInclude Include="Road.h" />
+    <ClInclude Include="Stack.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AccessList.cpp" />
@@ -154,8 +157,12 @@
     <ClCompile Include="CityList.cpp" />
     <ClCompile Include="CityNode.cpp" />
     <ClCompile Include="Country.cpp" />
+    <ClCompile Include="ItemType.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Road.cpp" />
+    <ClCompile Include="StaticList.h" />
+    <ClCompile Include="Stack.cpp" />
+    <ClCompile Include="StaticList.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

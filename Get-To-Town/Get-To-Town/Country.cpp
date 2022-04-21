@@ -25,7 +25,7 @@ void Country::setCitiesAmount(int _citiesAmount){
 
 }
 
-void Country::initCountry() {
+void Country::initAllCountries() {
 
 	for (int i = 0; i < citiesAmount; i++){
 	//	CityList* cityList = new CityList();

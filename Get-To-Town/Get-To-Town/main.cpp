@@ -5,18 +5,18 @@
 #include "AccessNode.h"
 #include "AccessList.h"
 #include <string>
+#include "utils.h"
 #define DELIIMITER ' '
 
 using namespace std;
 int getRoadDirectionFromInput(string& inputAllRoads, size_t pos, int cityAmout);
 Road* createNewRoad(string& inputAllRoads, size_t pos, int cityAmout);
 bool isValid(int roadAmounts, int roadAmountFound);
-void handleError();
+void getUserInput(int& cityAmounts, Country& country, int& roadAmounts, std::string& inputAllRoads, int& moked);
 void getToTown(Country* country, City* moked, AccessList* accessList);
 
 int main() {
 	Country country;
-	AccessList accessList;
 	vector<Road*> allRoads;
 	string inputAllRoads;
 	Road* road;
@@ -24,12 +24,7 @@ int main() {
 	int roadAmounts;
 	int moked;
 	size_t pos = 0;
-	cin >> cityAmounts;
-	country.setCitiesAmount(cityAmounts);
-	cin >> roadAmounts;
-	cin.ignore();
-	getline(cin, inputAllRoads);
-	cin >> moked;
+	getUserInput(cityAmounts, country, roadAmounts, inputAllRoads, moked);
 	while ((pos = inputAllRoads.find(DELIIMITER)) != string::npos) {
 		road = createNewRoad(inputAllRoads, pos, cityAmounts);
 		allRoads.push_back(road);
@@ -38,16 +33,20 @@ int main() {
 	{
 		handleError();
 	}
-	country.initCountry();
+	country.initAllCountries();
 	country.addCities(allRoads);
-
+	AccessList accessList(cityAmounts);
 	getToTown(&country, country.findCityById(moked), &accessList);
 }
 
-void handleError()
+void getUserInput(int& cityAmounts, Country& country, int& roadAmounts, std::string& inputAllRoads, int& moked)
 {
-	printf("invalid input");
-	exit(1);
+	cin >> cityAmounts;
+	country.setCitiesAmount(cityAmounts);
+	cin >> roadAmounts;
+	cin.ignore();
+	getline(cin, inputAllRoads);
+	cin >> moked;
 }
 
 bool isValid(int roadAmounts, int roadAmountFound)
@@ -92,7 +91,7 @@ void getToTown(Country* country, City* moked, AccessList* accessList) {
 
 	moked->setIsWhite(false);
 	AccessNode* currAccessNode = new AccessNode(moked, -1);
-	accessList->insertAfter(currAccessNode, accessList->foundLastIndex());
+	accessList->insertAfter(currAccessNode);
 	for (int i = 0; i < country->getCities().size(); i++)
 	{
 		CityList* cityList = country->getCities()[i];

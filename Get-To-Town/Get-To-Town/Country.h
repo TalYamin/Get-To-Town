@@ -22,7 +22,7 @@ public:
 	vector<CityList*> getCities();
 	int getCitiesAmount();
 	void setCitiesAmount(int _citiesAmount);
-	void initCountry();
+	void initAllCountries();
 	void addCities(vector<Road*> allRoads);
 	City* findCityById(int id);
 
