@@ -2,11 +2,8 @@
 
 #include "City.h"
 
-class AccessList;
-class City;
 class AccessNode
 {
-
 	City* data;
 	int next ; //index
 public:

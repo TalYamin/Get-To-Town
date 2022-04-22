@@ -1,17 +1,31 @@
 #include "AccessList.h"
-#include "StaticList.h"
+#include "StaticAccessList.h"
 
-AccessList:: AccessList(int citiesAmount) {
-	accessList = new StaticList(citiesAmount);
+AccessList::AccessList(int citiesAmount) {
+	staticAccessList = new StaticAccessList(citiesAmount);
 	isWhite.insert(isWhite.end(), citiesAmount, true);
+}
+
+vector<bool> AccessList::getIsWhite()
+{
+	return isWhite;
+}
+
+void AccessList::setIsWhite(int cityIndex, bool changeTo)
+{
+	isWhite[cityIndex] = changeTo;
 }
 
 AccessList::~AccessList()
 {
-	delete[] accessList;
 }
 
-void AccessList::insertAfter(AccessNode* node)
+StaticAccessList* AccessList::getStaticAcessList()
 {
-	accessList->insertAfter(node, accessList->foundLastIndex());
+	return staticAccessList;
+}
+
+void AccessList::insertToEnd(AccessNode* node)
+{
+	staticAccessList->insertToEnd(node, staticAccessList->foundLastIndex());
 }

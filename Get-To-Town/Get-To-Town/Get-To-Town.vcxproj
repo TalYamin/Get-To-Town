@@ -160,9 +160,9 @@
     <ClCompile Include="ItemType.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Road.cpp" />
-    <ClCompile Include="StaticList.h" />
+    <ClCompile Include="StaticAccessList.h" />
     <ClCompile Include="Stack.cpp" />
-    <ClCompile Include="StaticList.cpp" />
+    <ClCompile Include="StaticAccessList.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

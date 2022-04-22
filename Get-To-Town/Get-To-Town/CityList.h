@@ -22,5 +22,7 @@ private:
 	CityNode* createNewCityNode(City* city, CityNode* next);
 	void insertCityNodeToEndList(CityNode* newTail);
 
+	void initList(City* city, int next, int citiesAmount);
+
 
 };

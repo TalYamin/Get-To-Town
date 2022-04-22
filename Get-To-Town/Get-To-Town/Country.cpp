@@ -14,21 +14,10 @@ vector<CityList*> Country::getCities()
 	return cities;
 }
 
-int Country::getCitiesAmount()
-{
-	return 0;
-}
 
-void Country::setCitiesAmount(int _citiesAmount){
+void Country::initAllCountriesStructure(int citiesAmount) {
 
-	citiesAmount = _citiesAmount;
-
-}
-
-void Country::initAllCountries() {
-
-	for (int i = 0; i < citiesAmount; i++){
-	//	CityList* cityList = new CityList();
+	for (size_t i = 0; i < citiesAmount; i++) {
 		cities.push_back(new CityList());
 		cities[i]->insertCityDataToEndList(new City(i + 1));
 	}
@@ -36,16 +25,16 @@ void Country::initAllCountries() {
 
 void Country::addCities(vector<Road*> allRoads) {
 
-	for (int i = 0; i < allRoads.size(); i++){
+	for (int i = 0; i < allRoads.size(); i++) {
 		City* currCity = new City(allRoads[i]->getDest());
-		cities[allRoads[i]->getSrc()-1]->insertCityDataToEndList(currCity);
+		cities[allRoads[i]->getSrc() - 1]->insertCityDataToEndList(currCity);
 	}
 
 }
 
 City* Country::findCityById(int id)
 {
-	for (int i = 0; i < citiesAmount; i++)
+	for (size_t i = 0; i < cities.size(); i++)
 	{
 		if (cities[i]->getHead()->getCity()->getId() == id)
 			return cities[i]->getHead()->getCity();

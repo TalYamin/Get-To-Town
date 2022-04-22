@@ -1,20 +1,23 @@
 #pragma once
 
 #include "AccessNode.h"
-#include "StaticList.h"
 #include "vector"
+#include "StaticAccessList.h"
 
 using namespace std;
 
 class AccessList
 {
 	vector<bool> isWhite;
-	StaticList* accessList;
+	StaticAccessList* staticAccessList;
 
 public:
 	AccessList(int citiesAmount);
 	~AccessList();
-	void insertAfter(AccessNode* node);
+	void insertToEnd(AccessNode* node);
+	vector<bool> getIsWhite();
+	void setIsWhite(int cityIndex, bool changeTo);
+	StaticAccessList* getStaticAcessList();
 private:
 
 };

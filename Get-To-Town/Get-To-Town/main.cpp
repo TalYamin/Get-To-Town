@@ -10,39 +10,44 @@
 
 using namespace std;
 int getRoadDirectionFromInput(string& inputAllRoads, size_t pos, int cityAmout);
-Road* createNewRoad(string& inputAllRoads, size_t pos, int cityAmout);
+Road* extractNewRoad(string& inputAllRoads, size_t pos, int cityAmout);
 bool isValid(int roadAmounts, int roadAmountFound);
-void getUserInput(int& cityAmounts, Country& country, int& roadAmounts, std::string& inputAllRoads, int& moked);
-void getToTown(Country* country, City* moked, AccessList* accessList);
+void getUserInput(int& cityAmounts, int& roadAmounts, std::string& inputAllRoads, int& moked);
+void initAllRoads(size_t& pos, std::string& inputAllRoads, Road*& road, int cityAmounts, std::vector<Road*>& allRoads);
+void getToTown(Country& country, City* moked, AccessList& accessList);
+void recGetToTown(Country& country, City* moked, AccessList& accessList);
+void iterateGetToTown(Country country, City* moked, AccessList accessList);
 
 int main() {
 	Country country;
 	vector<Road*> allRoads;
 	string inputAllRoads;
 	Road* road;
-	int cityAmounts;
-	int roadAmounts;
-	int moked;
+	int citiesAmounts, roadAmounts, moked;
 	size_t pos = 0;
-	getUserInput(cityAmounts, country, roadAmounts, inputAllRoads, moked);
-	while ((pos = inputAllRoads.find(DELIIMITER)) != string::npos) {
-		road = createNewRoad(inputAllRoads, pos, cityAmounts);
-		allRoads.push_back(road);
-	}
+	getUserInput(citiesAmounts, roadAmounts, inputAllRoads, moked);
+	initAllRoads(pos, inputAllRoads, road, citiesAmounts, allRoads);
 	if (!isValid(roadAmounts, allRoads.size()))
 	{
 		handleError();
 	}
-	country.initAllCountries();
+	country.initAllCountriesStructure(citiesAmounts);
 	country.addCities(allRoads);
-	AccessList accessList(cityAmounts);
-	getToTown(&country, country.findCityById(moked), &accessList);
+	AccessList accessList(citiesAmounts);
+	getToTown(country, country.findCityById(moked), accessList);
 }
 
-void getUserInput(int& cityAmounts, Country& country, int& roadAmounts, std::string& inputAllRoads, int& moked)
+void initAllRoads(size_t& pos, string& inputAllRoads, Road*& road, int cityAmounts, vector<Road*>& allRoads)
 {
-	cin >> cityAmounts;
-	country.setCitiesAmount(cityAmounts);
+	while ((pos = inputAllRoads.find(DELIIMITER)) != string::npos) {
+		road = extractNewRoad(inputAllRoads, pos, cityAmounts);
+		allRoads.push_back(road);
+	}
+}
+
+void getUserInput(int& citiesAmounts, int& roadAmounts, std::string& inputAllRoads, int& moked)
+{
+	cin >> citiesAmounts;
 	cin >> roadAmounts;
 	cin.ignore();
 	getline(cin, inputAllRoads);
@@ -56,7 +61,7 @@ bool isValid(int roadAmounts, int roadAmountFound)
 	return true;
 }
 
-Road* createNewRoad(string& inputAllRoads, size_t pos, int cityAmout)
+Road* extractNewRoad(string& inputAllRoads, size_t pos, int cityAmout)
 {
 	int src = getRoadDirectionFromInput(inputAllRoads, pos, cityAmout);
 	pos = inputAllRoads.find(DELIIMITER);
@@ -72,37 +77,42 @@ int getRoadDirectionFromInput(string& inputAllRoads, size_t pos, int cityAmout)
 {
 	string token = inputAllRoads.substr(0, pos);
 	while (token.length() == 0) {
-		token = inputAllRoads.erase(0, pos + 1);//size of ' '
+		token = inputAllRoads.erase(0, pos + 1);//include size of ' '
 	}
 	pos = inputAllRoads.find(DELIIMITER);
-	inputAllRoads.erase(0, pos + 1);//size of ' '
+	inputAllRoads.erase(0, pos + 1);//inclue size of ' '
 	int num = stoi(token);
 	if (num > cityAmout + 1)
 	{
 		handleError();
 	}
-
-
 	return num;
 }
 
 
-void getToTown(Country* country, City* moked, AccessList* accessList) {
+void getToTown(Country& country, City* moked, AccessList& accessList) {
+	recGetToTown(country, moked, accessList);
+	accessList.getStaticAcessList()->print(moked->getId());
+	iterateGetToTown(country, moked, accessList);
+}
 
-	moked->setIsWhite(false);
-	AccessNode* currAccessNode = new AccessNode(moked, -1);
-	accessList->insertAfter(currAccessNode);
-	for (int i = 0; i < country->getCities().size(); i++)
-	{
-		CityList* cityList = country->getCities()[i];
-		if (cityList->getHead()->getCity()->getId()==moked->getId()){
-			CityNode* curr = cityList->getHead();
-			while (curr != nullptr) {
-				if (curr->getCity()->getIsWhite()) {
-					getToTown(country, curr->getCity(), accessList);
-				}
-				curr = curr->getNext();
-			}
-		}
+void recGetToTown(Country& country, City* moked, AccessList& accessList)
+{
+	if (accessList.getIsWhite()[moked->getId() - 1] == false) {
+		return;
 	}
+	accessList.setIsWhite(moked->getId() - 1, false);
+	AccessNode* currAccessNode = new AccessNode(moked, -1);
+	accessList.insertToEnd(currAccessNode);
+	CityNode* curr = country.getCities()[moked->getId() - 1]->getHead();
+	while (curr->getNext() != nullptr) {
+		recGetToTown(country, curr->getNext()->getCity(), accessList);
+		curr = curr->getNext();
+
+	}
+}
+
+void iterateGetToTown(Country country, City* moked, AccessList accessList)
+{
+	return;
 }
