@@ -11,7 +11,6 @@ using namespace std;
 class Country
 {
 	vector<CityList*> cities;
-	int citiesAmount;
 
 public:
 	//ctors + dtor
@@ -20,9 +19,7 @@ public:
 
 	//getters + setters
 	vector<CityList*> getCities();
-	int getCitiesAmount();
-	void setCitiesAmount(int _citiesAmount);
-	void initCountry();
+	void initAllCountriesStructure(int citiesAmount);
 	void addCities(vector<Road*> allRoads);
 	City* findCityById(int id);
 

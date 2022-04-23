@@ -22,5 +22,4 @@ private:
 	CityNode* createNewCityNode(City* city, CityNode* next);
 	void insertCityNodeToEndList(CityNode* newTail);
 
-
 };

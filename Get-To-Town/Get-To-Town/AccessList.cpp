@@ -1,56 +1,31 @@
 #include "AccessList.h"
 
-AccessList::AccessList()
-{
+AccessList::AccessList(int citiesAmount) {
+	staticAccessList = new StaticAccessList(citiesAmount);
+	isWhite.insert(isWhite.end(), citiesAmount, true);
 }
 
-AccessList::AccessList(AccessNode* _list, int _headList, int _headFree)
+vector<bool> AccessList::getIsWhite()
 {
+	return isWhite;
+}
+
+void AccessList::setIsWhite(int cityIndex, bool changeTo)
+{
+	isWhite[cityIndex] = changeTo;
 }
 
 AccessList::~AccessList()
 {
+	delete(staticAccessList);
 }
 
-void AccessList::insertAfter(AccessNode* node, int foundIndex)
+StaticAccessList* AccessList::getStaticAcessList()
 {
-	int locNew = headFree;
-	if (!isEmptyCityList())
-	{
-		headFree = list[headFree]->getNextIndex();
-		list[locNew]->setData(node->getData());
-		list[foundIndex]->setNextIndex(locNew);
-	}
-	else {
-		headFree = 1;
-	}
-	list.push_back(node);
-
+	return staticAccessList;
 }
 
-int AccessList::foundLastIndex()
+void AccessList::insertToEnd(AccessNode* node)
 {
-	int prev = 0;
-	if (!isEmptyCityList())
-	{
-		AccessNode* node = list[headList];
-		while (node->getNextIndex() != -1)
-		{
-			prev = node->getNextIndex();
-			node = list[node->getNextIndex()];
-		}
-		return node->getNextIndex();
-	}
-	return prev;
-}
-
-bool AccessList::isEmptyCityList()
-{
-	bool isEmpty = false;
-
-	if (headList == 0 && headFree == 0) {
-		isEmpty = true;
-	}
-
-	return isEmpty;
+	staticAccessList->insertToEnd(node, staticAccessList->foundLastIndex());
 }

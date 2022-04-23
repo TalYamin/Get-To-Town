@@ -2,12 +2,9 @@
 
 #include "City.h"
 
-class AccessList;
-class City;
 class AccessNode
 {
-
-	City* data;
+	City* city;
 	int next ; //index
 public:
 	AccessNode();

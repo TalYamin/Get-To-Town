@@ -2,24 +2,24 @@
 
 #include "AccessNode.h"
 #include "vector"
+#include "StaticAccessList.h"
+
 
 using namespace std;
 
-class AccessNode;
+class StaticAcessList;
 class AccessList
 {
-
-	vector<AccessNode*> list;
-	int headList = 0;
-	int headFree = 0;
+	vector<bool> isWhite;
+	StaticAccessList* staticAccessList;
 
 public:
-	AccessList();
-	AccessList(AccessNode* _list, int _headList, int _headFree);
+	AccessList(int citiesAmount);
 	~AccessList();
-	void insertAfter(AccessNode* node, int foundIndex);
-	int foundLastIndex();
-	bool isEmptyCityList();
+	void insertToEnd(AccessNode* node);
+	vector<bool> getIsWhite();
+	void setIsWhite(int cityIndex, bool changeTo);
+	StaticAccessList* getStaticAcessList();
 private:
 
 };

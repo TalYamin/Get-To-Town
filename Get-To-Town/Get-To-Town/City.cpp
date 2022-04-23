@@ -19,15 +19,6 @@ int City::getId()
 	return id;
 }
 
-bool City::getIsWhite()
-{
-	return isWhite;
-}
-
-void City::setIsWhite(bool _isWhite){
-
-	isWhite = _isWhite;
-}
 
  
 
