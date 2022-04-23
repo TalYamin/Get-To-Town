@@ -21,9 +21,6 @@
     <ClInclude Include="City.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AccessList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AccessNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -48,11 +45,14 @@
     <ClInclude Include="Item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AccessList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticAccessList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AccessList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AccessNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -80,16 +80,16 @@
     <ClCompile Include="CityNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StaticAccessList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticAccessList.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="recLineResult.h">
       <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="Item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AccessList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticAccessList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
