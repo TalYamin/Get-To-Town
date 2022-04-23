@@ -77,7 +77,7 @@ bool StaticAccessList::isEmptyCityList()
 	return isEmpty;
 }
 
-void StaticAccessList::print(int moked)
+void StaticAccessList::printStaticList(int moked)
 {
 	cout << "Cities accessible from source city " << moked << " (recursive algorithm): ";
 	int currIndex = headList;

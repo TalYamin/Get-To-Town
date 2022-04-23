@@ -20,7 +20,7 @@ public:
 	void insertToEnd(AccessNode* node, int foundIndex);
 	int foundLastIndex();
 	bool isEmptyCityList();
-	void print(int moked);
+	void printStaticList(int moked);
 private:
 
 };

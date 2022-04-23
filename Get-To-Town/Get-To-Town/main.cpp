@@ -99,13 +99,13 @@ int getRoadDirectionFromInput(string& inputAllRoads, size_t pos, int cityAmout)
 void getToTownRec(Country country, City* moked, AccessList accessList)
 {
 	recGetToTown(country, moked, accessList);
-	accessList.getStaticAcessList()->print(moked->getId());
+	accessList.getStaticAcessList()->printStaticList(moked->getId());
 }
 
 void getToTownIter(Country country, City* moked, AccessList accessList)
 {
 	iterateGetToTown(country, moked, accessList);
-	accessList.getStaticAcessList()->print(moked->getId());
+	accessList.getStaticAcessList()->printStaticList(moked->getId());
 }
 
 void recGetToTown(Country& country, City* moked, AccessList& accessList)
