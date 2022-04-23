@@ -13,14 +13,16 @@
 using namespace std;
 int getRoadDirectionFromInput(string& inputAllRoads, size_t pos, int cityAmout);
 Road* extractNewRoad(string& inputAllRoads, size_t pos, int cityAmout);
-bool isValid(int roadAmounts, int roadAmountFound);
+bool isValid(int roadAmounts, int roadAmountFound, int moked, int cityAmount);
 void getUserInput(int& cityAmounts, int& roadAmounts, std::string& inputAllRoads, int& moked);
 void initAllRoads(size_t& pos, std::string& inputAllRoads, Road*& road, int cityAmounts, std::vector<Road*>& allRoads);
 void recGetToTown(Country& country, City* moked, AccessList& accessList);
-void iterateGetToTown(Country country, City* moked, AccessList accessList);
+void iterateGetToTown(Country country, City* moked, AccessList& accessList);
 
-void getToTownRec(Country country, City* moked, AccessList accessList);
-void getToTownIter(Country country, City* moked, AccessList accessList);
+void getToTownRec(Country country, City* moked, int citiesAmounts);
+void getToTownIter(Country country, City* moked, int citiesAmounts);
+void printRecResult(int moked);
+void printIterResult(int moked);
 
 
 int main() {
@@ -32,16 +34,15 @@ int main() {
 	size_t pos = 0;
 	getUserInput(citiesAmounts, roadAmounts, inputAllRoads, moked);
 	initAllRoads(pos, inputAllRoads, road, citiesAmounts, allRoads);
-	if (!isValid(roadAmounts, allRoads.size()))
+	if (!isValid(roadAmounts, allRoads.size(), moked, citiesAmounts))
 	{
 		handleError();
 	}
 	country.initAllCountriesStructure(citiesAmounts);
 	country.addCities(allRoads);
-	AccessList accessList(citiesAmounts);
-	AccessList temp(citiesAmounts);
-	getToTownRec(country, country.findCityById(moked), temp);
-	getToTownIter(country, country.findCityById(moked), accessList);
+	getToTownRec(country, country.findCityById(moked), citiesAmounts);
+	getToTownIter(country, country.findCityById(moked), citiesAmounts);
+	return 0;
 }
 
 void initAllRoads(size_t& pos, string& inputAllRoads, Road*& road, int cityAmounts, vector<Road*>& allRoads)
@@ -61,9 +62,11 @@ void getUserInput(int& citiesAmounts, int& roadAmounts, std::string& inputAllRoa
 	cin >> moked;
 }
 
-bool isValid(int roadAmounts, int roadAmountFound)
+bool isValid(int roadAmounts, int roadAmountFound, int moked, int cityAmount)
 {
 	if (roadAmounts != roadAmountFound)
+		return false;
+	if (moked > cityAmount)
 		return false;
 	return true;
 }
@@ -96,16 +99,31 @@ int getRoadDirectionFromInput(string& inputAllRoads, size_t pos, int cityAmout)
 	return num;
 }
 
-void getToTownRec(Country country, City* moked, AccessList accessList)
+void getToTownRec(Country country, City* moked, int citiesAmounts)
 {
+	AccessList accessList(citiesAmounts);
 	recGetToTown(country, moked, accessList);
+	printRecResult(moked->getId());
 	accessList.getStaticAcessList()->printStaticList(moked->getId());
 }
 
-void getToTownIter(Country country, City* moked, AccessList accessList)
+void getToTownIter(Country country, City* moked, int citiesAmounts)
 {
+	AccessList accessList(citiesAmounts);
 	iterateGetToTown(country, moked, accessList);
+	printIterResult(moked->getId());
 	accessList.getStaticAcessList()->printStaticList(moked->getId());
+}
+
+void printRecResult(int moked)
+{
+	cout << "Cities accessible from source city " << moked << " (recursive algorithm): ";
+}
+
+void printIterResult(int moked)
+{
+	cout << "Cities accessible from city source city " << moked << " (iterative algorithm): ";
+
 }
 
 void recGetToTown(Country& country, City* moked, AccessList& accessList)
@@ -124,7 +142,7 @@ void recGetToTown(Country& country, City* moked, AccessList& accessList)
 	}
 }
 
-void iterateGetToTown(Country country, City* moked, AccessList accessList)
+void iterateGetToTown(Country country, City* moked, AccessList& accessList)
 {
 	Stack stack = Stack();
 	CityNode* cityNode = country.getCities()[moked->getId() - 1]->getHead();

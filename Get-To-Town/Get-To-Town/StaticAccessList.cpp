@@ -20,6 +20,10 @@ StaticAccessList::StaticAccessList(vector<AccessNode*> _list, int _headList, int
 
 StaticAccessList::~StaticAccessList()
 {
+	for (int i = 0;i < list.size();i++)
+	{
+		delete(list[i]);
+	}
 }
 
 void StaticAccessList::insertAfter(AccessNode* node, int foundIndex)
@@ -79,7 +83,6 @@ bool StaticAccessList::isEmptyCityList()
 
 void StaticAccessList::printStaticList(int moked)
 {
-	cout << "Cities accessible from source city " << moked << " (recursive algorithm): ";
 	int currIndex = headList;
 	while (currIndex != -1) {
 		cout << list[currIndex]->getData()->getId() << ' ';

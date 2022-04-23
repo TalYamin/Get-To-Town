@@ -17,6 +17,7 @@ void AccessList::setIsWhite(int cityIndex, bool changeTo)
 
 AccessList::~AccessList()
 {
+	delete(staticAccessList);
 }
 
 StaticAccessList* AccessList::getStaticAcessList()
