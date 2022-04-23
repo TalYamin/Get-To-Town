@@ -150,11 +150,11 @@ void iterateGetToTown(Country country, City* moked, AccessList accessList)
 			}
 			else if (curItem->getRecLineResult() == RecLineResult::FIRST_AFTER) {
 				if (country.getCities()[cityNode->getCity()->getId() - 1]->getHead()->getNext() != nullptr) {
-					Item* tmp = new Item(cityNode, RecLineResult::START, country);
+					Item* tmp = new Item(country.getCities()[cityNode->getCity()->getId() - 1]->getHead()->getNext(),
+						RecLineResult::START, country);
 					curItem->setNodeData(cityNode->getNext());
+					curItem->setRecLineResult(RecLineResult::START);
 					stack.push(curItem);
-					stack.push(tmp);
-
 				}
 			}
 		}
