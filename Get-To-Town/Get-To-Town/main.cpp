@@ -3,9 +3,11 @@
 #include "Road.h"
 #include "vector"
 #include "AccessNode.h"
-#include "AccessList.h"
 #include <string>
 #include "utils.h"
+#include "Stack.h"
+#include "StaticAccessList.h"
+#include "AccessList.h"
 #define DELIIMITER ' '
 
 using namespace std;
@@ -14,9 +16,12 @@ Road* extractNewRoad(string& inputAllRoads, size_t pos, int cityAmout);
 bool isValid(int roadAmounts, int roadAmountFound);
 void getUserInput(int& cityAmounts, int& roadAmounts, std::string& inputAllRoads, int& moked);
 void initAllRoads(size_t& pos, std::string& inputAllRoads, Road*& road, int cityAmounts, std::vector<Road*>& allRoads);
-void getToTown(Country& country, City* moked, AccessList& accessList);
 void recGetToTown(Country& country, City* moked, AccessList& accessList);
 void iterateGetToTown(Country country, City* moked, AccessList accessList);
+
+void getToTownRec(Country country, City* moked, AccessList accessList);
+void getToTownIter(Country country, City* moked, AccessList accessList);
+
 
 int main() {
 	Country country;
@@ -34,7 +39,9 @@ int main() {
 	country.initAllCountriesStructure(citiesAmounts);
 	country.addCities(allRoads);
 	AccessList accessList(citiesAmounts);
-	getToTown(country, country.findCityById(moked), accessList);
+	AccessList temp(citiesAmounts);
+	getToTownRec(country, country.findCityById(moked), temp);
+	getToTownIter(country, country.findCityById(moked), accessList);
 }
 
 void initAllRoads(size_t& pos, string& inputAllRoads, Road*& road, int cityAmounts, vector<Road*>& allRoads)
@@ -89,11 +96,16 @@ int getRoadDirectionFromInput(string& inputAllRoads, size_t pos, int cityAmout)
 	return num;
 }
 
-
-void getToTown(Country& country, City* moked, AccessList& accessList) {
+void getToTownRec(Country country, City* moked, AccessList accessList)
+{
 	recGetToTown(country, moked, accessList);
 	accessList.getStaticAcessList()->print(moked->getId());
+}
+
+void getToTownIter(Country country, City* moked, AccessList accessList)
+{
 	iterateGetToTown(country, moked, accessList);
+	accessList.getStaticAcessList()->print(moked->getId());
 }
 
 void recGetToTown(Country& country, City* moked, AccessList& accessList)
@@ -114,5 +126,37 @@ void recGetToTown(Country& country, City* moked, AccessList& accessList)
 
 void iterateGetToTown(Country country, City* moked, AccessList accessList)
 {
-	return;
+	Stack stack = Stack();
+	CityNode* cityNode = country.getCities()[moked->getId() - 1]->getHead();
+	Item* item = new Item(cityNode, RecLineResult::START, country);
+	stack.push(item);
+
+	while (!stack.isEmpty()) {
+		Item* curItem = stack.pop()->getData();
+		if (curItem->getData() != nullptr) {
+			cityNode = country.getCities()[curItem->getData()->getCity()->getId() - 1]->getHead();
+			if (curItem->getRecLineResult() == RecLineResult::START) {
+				if (accessList.getIsWhite()[curItem->getData()->getCity()->getId() - 1] == true) {
+					accessList.setIsWhite(curItem->getData()->getCity()->getId() - 1, false);
+					AccessNode* node = new AccessNode(curItem->getData()->getCity(), -1);
+					accessList.insertToEnd(node);
+					if (!country.getCities()[moked->getId() - 1]->isEmptyCityList()) {
+						Item* tmp = new Item(cityNode, RecLineResult::FIRST_AFTER, country);
+						curItem->setRecLineResult(RecLineResult::START);
+						stack.push(new Item(curItem->getData()->getNext(), RecLineResult::START, country));
+						stack.push(tmp);
+					}
+				}
+			}
+			else if (curItem->getRecLineResult() == RecLineResult::FIRST_AFTER) {
+				if (country.getCities()[cityNode->getCity()->getId() - 1]->getHead()->getNext() != nullptr) {
+					Item* tmp = new Item(cityNode, RecLineResult::START, country);
+					curItem->setNodeData(cityNode->getNext());
+					stack.push(curItem);
+					stack.push(tmp);
+
+				}
+			}
+		}
+	}
 }

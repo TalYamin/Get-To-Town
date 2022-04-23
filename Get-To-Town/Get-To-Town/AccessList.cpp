@@ -1,5 +1,4 @@
 #include "AccessList.h"
-#include "StaticAccessList.h"
 
 AccessList::AccessList(int citiesAmount) {
 	staticAccessList = new StaticAccessList(citiesAmount);

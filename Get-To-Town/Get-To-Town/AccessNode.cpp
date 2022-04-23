@@ -6,7 +6,7 @@ AccessNode::AccessNode()
 
 AccessNode::AccessNode(City* _city, int _next)
 {
-	data = _city;
+	city = _city;
 	next = _next;
 }
 
@@ -21,12 +21,12 @@ int AccessNode::getNextIndex()
 
 City* AccessNode::getData()
 {
-	return data;
+	return city;
 }
 
 void AccessNode::setData(City* _city)
 {
-	data = _city;
+	city = _city;
 }
 
 void AccessNode::setNextIndex(int _next)

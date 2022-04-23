@@ -4,8 +4,10 @@
 #include "vector"
 #include "StaticAccessList.h"
 
+
 using namespace std;
 
+class StaticAcessList;
 class AccessList
 {
 	vector<bool> isWhite;

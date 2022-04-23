@@ -1,4 +1,5 @@
 #pragma once
+#include "Stack.h"
 #include "ItemType.h"
 #include <iostream>
 #include <vector>
@@ -7,14 +8,13 @@ using namespace std;
 
 
 class Stack {
-	int top;
+	ItemType* top = nullptr;
 
 public:
-	vector<ItemType> items; // Maximum size of Stack
-
 	Stack();
-	void push(ItemType item);
-	ItemType pop();
+	~Stack();
+	void push(Item* item);
+	ItemType* pop();
 	bool isEmpty();
 	void makeEmpty();
 };

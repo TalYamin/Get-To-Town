@@ -7,6 +7,10 @@ StaticAccessList::StaticAccessList(int cityAmount)
 	list.resize(cityAmount);
 }
 
+StaticAccessList::StaticAccessList()
+{
+}
+
 StaticAccessList::StaticAccessList(vector<AccessNode*> _list, int _headList, int _headFree)
 {
 	list = _list;
@@ -37,8 +41,8 @@ void StaticAccessList::insertAfter(AccessNode* node, int foundIndex)
 void StaticAccessList::insertToEnd(AccessNode* node, int foundIndex)
 {
 	if (!isEmptyCityList()) {
-		list[headFree] = node;
 		list[foundIndex]->setNextIndex(headFree);
+		list[headFree] = node;
 		headFree++;
 	}
 	else {
