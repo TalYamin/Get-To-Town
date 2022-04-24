@@ -1,16 +1,18 @@
 #include "StaticAccessList.h"
 #include <iostream>
 
-
+/*ctor of StaticAccessList with 1 parameter*/
 StaticAccessList::StaticAccessList(int cityAmount)
 {
 	list.resize(cityAmount);
 }
 
+/*empty ctor of StaticAccessList*/
 StaticAccessList::StaticAccessList()
 {
 }
 
+/*ctor of StaticAccessList*/
 StaticAccessList::StaticAccessList(vector<AccessNode*> _list, int _headList, int _headFree)
 {
 	list = _list;
@@ -18,6 +20,7 @@ StaticAccessList::StaticAccessList(vector<AccessNode*> _list, int _headList, int
 	headList = _headList;
 }
 
+/*dtor of StaticAccessList*/
 StaticAccessList::~StaticAccessList()
 {
 	for (int i = 0;i < list.size();i++)
@@ -26,13 +29,16 @@ StaticAccessList::~StaticAccessList()
 	}
 }
 
+/*
+Function is responsible to insert accessNode after a spsecific index which received.
+*/
 void StaticAccessList::insertAfter(AccessNode* node, int foundIndex)
 {
 	int locNew = headFree;
 	if (!isEmptyCityList())
 	{
 		headFree = list[headFree]->getNextIndex();
-		list[locNew]->setData(node->getData());
+		list[locNew]->setCity(node->getCity());
 		list[foundIndex]->setNextIndex(locNew);
 	}
 	else {
@@ -42,6 +48,9 @@ void StaticAccessList::insertAfter(AccessNode* node, int foundIndex)
 
 }
 
+/*
+Function is responsible to insert accessNode in the end of list.
+*/
 void StaticAccessList::insertToEnd(AccessNode* node, int foundIndex)
 {
 	if (!isEmptyCityList()) {
@@ -55,6 +64,9 @@ void StaticAccessList::insertToEnd(AccessNode* node, int foundIndex)
 	}
 }
 
+/*
+Function is responibsle to found the current last index in list.
+*/
 int StaticAccessList::foundLastIndex()
 {
 	int index = 0;
@@ -70,6 +82,9 @@ int StaticAccessList::foundLastIndex()
 	return index;
 }
 
+/*
+Function checks if cityList is empty. return true if it is empty.
+*/
 bool StaticAccessList::isEmptyCityList()
 {
 	bool isEmpty = false;
@@ -81,11 +96,14 @@ bool StaticAccessList::isEmptyCityList()
 	return isEmpty;
 }
 
+/*
+Function is used to print the static list.
+*/
 void StaticAccessList::printStaticList(int moked)
 {
 	int currIndex = headList;
 	while (currIndex != -1) {
-		cout << list[currIndex]->getData()->getId() << ' ';
+		cout << list[currIndex]->getCity()->getId() << ' ';
 		currIndex = list[currIndex]->getNextIndex();
 	}
 	cout << endl;

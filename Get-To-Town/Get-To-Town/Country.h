@@ -19,11 +19,16 @@ public:
 
 	//getters + setters
 	vector<CityList*> getCities();
+
+	//public methods
 	void initAllCountriesStructure(int citiesAmount);
 	void addCities(vector<Road*> allRoads);
 	City* findCityById(int id);
 
 private:
+
+	//private methods
 	void addCity(City* city);
+	void freeAllCities();
 };
 

@@ -11,8 +11,12 @@ class Stack {
 	ItemType* top = nullptr;
 
 public:
+
+	//ctors + dtors
 	Stack();
 	~Stack();
+
+	//public methods
 	void push(Item* item);
 	ItemType* pop();
 	bool isEmpty();

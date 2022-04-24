@@ -17,12 +17,12 @@ bool isValid(int roadAmounts, int roadAmountFound, int moked, int cityAmount);
 void getUserInput(int& cityAmounts, int& roadAmounts, std::string& inputAllRoads, int& moked);
 void initAllRoads(size_t& pos, std::string& inputAllRoads, Road*& road, int cityAmounts, std::vector<Road*>& allRoads);
 void recGetToTown(Country& country, City* moked, AccessList& accessList);
-void iterateGetToTown(Country country, City* moked, AccessList& accessList);
-
-void getToTownRec(Country country, City* moked, int citiesAmounts);
-void getToTownIter(Country country, City* moked, int citiesAmounts);
+void iterateGetToTown(Country& country, City* moked, AccessList& accessList);
+void getToTownRec(Country& country, City* moked, int citiesAmounts);
+void getToTownIter(Country& country, City* moked, int citiesAmounts);
 void printRecResult(int moked);
 void printIterResult(int moked);
+void freeAllRoads(vector<Road*> allRoads);
 
 
 int main() {
@@ -42,9 +42,14 @@ int main() {
 	country.addCities(allRoads);
 	getToTownRec(country, country.findCityById(moked), citiesAmounts);
 	getToTownIter(country, country.findCityById(moked), citiesAmounts);
+	freeAllRoads(allRoads);
 	return 0;
 }
 
+
+/*
+Function is responible to init all roads vector which contians all cities relations.
+*/
 void initAllRoads(size_t& pos, string& inputAllRoads, Road*& road, int cityAmounts, vector<Road*>& allRoads)
 {
 	while ((pos = inputAllRoads.find(DELIIMITER)) != string::npos) {
@@ -53,6 +58,9 @@ void initAllRoads(size_t& pos, string& inputAllRoads, Road*& road, int cityAmoun
 	}
 }
 
+/*
+Function is repsonsible to get all user input.
+*/
 void getUserInput(int& citiesAmounts, int& roadAmounts, std::string& inputAllRoads, int& moked)
 {
 	cin >> citiesAmounts;
@@ -62,6 +70,9 @@ void getUserInput(int& citiesAmounts, int& roadAmounts, std::string& inputAllRoa
 	cin >> moked;
 }
 
+/*
+Function is used if the data which received from user is valid.
+*/
 bool isValid(int roadAmounts, int roadAmountFound, int moked, int cityAmount)
 {
 	if (roadAmounts != roadAmountFound)
@@ -71,6 +82,10 @@ bool isValid(int roadAmounts, int roadAmountFound, int moked, int cityAmount)
 	return true;
 }
 
+/*
+Function creat a road according to string received from user as input by using 
+string functions in order to receive all the needed data from string - source city and destination city.
+*/
 Road* extractNewRoad(string& inputAllRoads, size_t pos, int cityAmout)
 {
 	int src = getRoadDirectionFromInput(inputAllRoads, pos, cityAmout);
@@ -83,6 +98,9 @@ Road* extractNewRoad(string& inputAllRoads, size_t pos, int cityAmout)
 	return new Road(src, dest);
 }
 
+/*
+Function reponsible to get the road direction, according to string received in input.
+*/
 int getRoadDirectionFromInput(string& inputAllRoads, size_t pos, int cityAmout)
 {
 	string token = inputAllRoads.substr(0, pos);
@@ -99,7 +117,11 @@ int getRoadDirectionFromInput(string& inputAllRoads, size_t pos, int cityAmout)
 	return num;
 }
 
-void getToTownRec(Country country, City* moked, int citiesAmounts)
+/*
+This function is wrapper function of recGetToTown.
+AccessList will be printed.
+*/
+void getToTownRec(Country& country, City* moked, int citiesAmounts)
 {
 	AccessList accessList(citiesAmounts);
 	recGetToTown(country, moked, accessList);
@@ -107,7 +129,11 @@ void getToTownRec(Country country, City* moked, int citiesAmounts)
 	accessList.getStaticAcessList()->printStaticList(moked->getId());
 }
 
-void getToTownIter(Country country, City* moked, int citiesAmounts)
+/*
+This function is wrapper function of iterateGetToTown.
+AccessList will be printed.
+*/
+void getToTownIter(Country& country, City* moked, int citiesAmounts)
 {
 	AccessList accessList(citiesAmounts);
 	iterateGetToTown(country, moked, accessList);
@@ -115,17 +141,24 @@ void getToTownIter(Country country, City* moked, int citiesAmounts)
 	accessList.getStaticAcessList()->printStaticList(moked->getId());
 }
 
+/*print rec result*/
 void printRecResult(int moked)
 {
 	cout << "Cities accessible from source city " << moked << " (recursive algorithm): ";
 }
 
+/*print iter result*/
 void printIterResult(int moked)
 {
 	cout << "Cities accessible from city source city " << moked << " (iterative algorithm): ";
 
 }
 
+/*
+This function implements get to town function recursively.
+Function receives the moked, and initialize the accessList of this moked
+in recursively way.
+*/
 void recGetToTown(Country& country, City* moked, AccessList& accessList)
 {
 	if (accessList.getIsWhite()[moked->getId() - 1] == false) {
@@ -142,39 +175,58 @@ void recGetToTown(Country& country, City* moked, AccessList& accessList)
 	}
 }
 
-void iterateGetToTown(Country country, City* moked, AccessList& accessList)
+/*
+This function implements get to town function iteratively.
+Function receives the moked, and initialize the accessList of this moked
+in iteratively way.
+*/
+void iterateGetToTown(Country& country, City* moked, AccessList& accessList)
 {
 	Stack stack = Stack();
 	CityNode* cityNode = country.getCities()[moked->getId() - 1]->getHead();
-	Item* item = new Item(cityNode, RecLineResult::START, country);
+	Item* item = new Item(cityNode, RecLineResult::START, &country);
 	stack.push(item);
 
 	while (!stack.isEmpty()) {
-		Item* curItem = stack.pop()->getData();
-		if (curItem->getData() != nullptr) {
-			cityNode = country.getCities()[curItem->getData()->getCity()->getId() - 1]->getHead();
-			if (curItem->getRecLineResult() == RecLineResult::START) {
-				if (accessList.getIsWhite()[curItem->getData()->getCity()->getId() - 1] == true) {
-					accessList.setIsWhite(curItem->getData()->getCity()->getId() - 1, false);
-					AccessNode* node = new AccessNode(curItem->getData()->getCity(), -1);
+		Item* currItem = stack.pop()->getData();
+		if (currItem->getData() != nullptr) {
+			cityNode = country.getCities()[currItem->getData()->getCity()->getId() - 1]->getHead();
+			if (currItem->getRecLineResult() == RecLineResult::START) {
+				if (accessList.getIsWhite()[currItem->getData()->getCity()->getId() - 1] == true) {
+					accessList.setIsWhite(currItem->getData()->getCity()->getId() - 1, false);
+					AccessNode* node = new AccessNode(currItem->getData()->getCity(), -1);
 					accessList.insertToEnd(node);
 					if (!country.getCities()[moked->getId() - 1]->isEmptyCityList()) {
-						Item* tmp = new Item(cityNode, RecLineResult::FIRST_AFTER, country);
-						curItem->setRecLineResult(RecLineResult::START);
-						stack.push(new Item(curItem->getData()->getNext(), RecLineResult::START, country));
+						Item* tmp = new Item(cityNode, RecLineResult::FIRST_AFTER, &country);
+						currItem->setRecLineResult(RecLineResult::START);
+						stack.push(new Item(currItem->getData()->getNext(), RecLineResult::START, &country));
 						stack.push(tmp);
+						delete currItem;
 					}
 				}
+				else {
+					delete currItem;
+				}
 			}
-			else if (curItem->getRecLineResult() == RecLineResult::FIRST_AFTER) {
+			else if (currItem->getRecLineResult() == RecLineResult::FIRST_AFTER) {
 				if (country.getCities()[cityNode->getCity()->getId() - 1]->getHead()->getNext() != nullptr) {
-					Item* tmp = new Item(country.getCities()[cityNode->getCity()->getId() - 1]->getHead()->getNext(),
-						RecLineResult::START, country);
-					curItem->setNodeData(cityNode->getNext());
-					curItem->setRecLineResult(RecLineResult::START);
-					stack.push(curItem);
+					currItem->setNodeData(cityNode->getNext());
+					currItem->setRecLineResult(RecLineResult::START);
+					stack.push(currItem);
+				}
+				else {
+					delete currItem;
 				}
 			}
 		}
 	}
+}
+
+/*Function is used to free all memory allocation of roads*/
+void freeAllRoads(vector<Road*> allRoads) {
+
+	for (int i = 0; i < allRoads.size(); i++){
+		delete allRoads[i];
+	}
+
 }

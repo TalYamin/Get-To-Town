@@ -7,11 +7,14 @@ class Item
 {
 	CityNode* nodeData;
 	RecLineResult rlr;
-	Country country;
+	Country* country;
 
 public:
-	Item(CityNode* _nodeData, RecLineResult _rlr, Country _country);
+	//ctors + dtors
+	Item(CityNode* _nodeData, RecLineResult _rlr, Country* _country);
 	~Item();
+
+	//getters + setters
 	RecLineResult getRecLineResult();
 	void setRecLineResult(RecLineResult _rlr);
 	CityNode* getData();

@@ -14,8 +14,11 @@ class AccessList
 	StaticAccessList* staticAccessList;
 
 public:
+	//ctors + dtors
 	AccessList(int citiesAmount);
 	~AccessList();
+
+	//getters + setters
 	void insertToEnd(AccessNode* node);
 	vector<bool> getIsWhite();
 	void setIsWhite(int cityIndex, bool changeTo);
