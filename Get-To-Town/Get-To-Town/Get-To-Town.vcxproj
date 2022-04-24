@@ -149,6 +149,7 @@
     <ClInclude Include="ItemType.h" />
     <ClInclude Include="Road.h" />
     <ClInclude Include="Stack.h" />
+    <ClInclude Include="StaticAccessList.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -163,7 +164,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="recLineResult.h" />
     <ClCompile Include="Road.cpp" />
-    <ClCompile Include="StaticAccessList.h" />
     <ClCompile Include="Stack.cpp" />
     <ClCompile Include="StaticAccessList.cpp" />
   </ItemGroup>
