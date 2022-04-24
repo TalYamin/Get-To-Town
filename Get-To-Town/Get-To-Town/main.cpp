@@ -188,7 +188,9 @@ void iterateGetToTown(Country& country, City* moked, AccessList& accessList)
 	stack.push(item);
 
 	while (!stack.isEmpty()) {
-		Item* currItem = stack.pop()->getData();
+		ItemType* currItemType = stack.pop();
+		Item* currItem = currItemType->getData();
+		free(currItemType);
 		if (currItem->getData() != nullptr) {
 			cityNode = country.getCities()[currItem->getData()->getCity()->getId() - 1]->getHead();
 			if (currItem->getRecLineResult() == RecLineResult::START) {
