@@ -1,20 +1,20 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Get To Town
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+### Problem Description:
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+Given a number of cities in a distant country, where different cities are connected by one-way roads to the other cities.
+It is forbidden to drive in contrast to direction of traffic, not all cities are connected to the other cities.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+![image](https://user-images.githubusercontent.com/44345318/201055858-120cc822-be11-4128-8f3e-9751ee3a2cbe.png)
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+
+A citizen who wants to reach his destination can pass through any of the cities connected to his city, and from there continue to the cities
+to which those cities are connected.
+For a citizen in a certain city, we would like to understand what all the cities are that he is able to reach.
+We will use the following settings:
+
+Moked - a citizen in a certain city.
+Moked's accessible-group - the group of cities that the citizen can reach.
+
+For example, in the drawing - if a citizen in city 1 can get to city 4 and 4 - can get to 5 -, let's say that Moked - his accessible group is { 1,4,5}
+Another example - for the 3 call center, its accessible group is { 3,2,4,5}
